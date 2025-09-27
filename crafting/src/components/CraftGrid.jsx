@@ -1,18 +1,18 @@
 import React from 'react'
-import { useInventoryContext } from '../hooks/useInventoryContext'
-import useCrafting from '../hooks/useCrafting'
+import { useCraftContext } from '../hooks/useCraftContext'
 
 function CraftGrid() {
 	const {
 		craftSlots,
+		result,
 		handleDrop,
 		handleDragOver,
 		handleDragStart,
-		addToInventory,
+		addItem,
+		removeFromCraftGrid,
 		clearCraftGrid,
-	} = useInventoryContext()
-
-	const { result } = useCrafting(craftSlots)
+		takeCraftResult,
+	} = useCraftContext()
 
 	return (
 		<div className='flex flex-col items-center gap-4'>
@@ -21,9 +21,9 @@ function CraftGrid() {
 					<div
 						className='w-4/5 h-4/5 rounded-full cursor-pointer'
 						style={{ backgroundColor: result }}
-						onClick={() => addToInventory(result)}
+						onClick={() => addItem(takeCraftResult())}
 						draggable
-						onDragStart={e => handleDragStart(e, null, 'result')}
+						onDragStart={e => handleDragStart(e, result, null, 'result')}
 					/>
 				)}
 			</div>
@@ -33,15 +33,20 @@ function CraftGrid() {
 					<div
 						key={index}
 						className='w-16 h-16 border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer'
-						onDrop={e => handleDrop(e, index, 'craft')}
+						onDrop={e => handleDrop(e, 'craft', index)}
 						onDragOver={handleDragOver}
 						draggable={!!item}
-						onDragStart={e => handleDragStart(e, index, 'craft')}
-						onClick={() => item && addToInventory(item)}
+						onDragStart={e => handleDragStart(e, item, index, 'craft')}
+						onClick={() => {
+							if (item) {
+								addItem(item)
+								removeFromCraftGrid(index)
+							}
+						}}
 					>
 						{item && (
 							<div
-								className='w-4/5 h-4/5 rounded-full'
+								className='w-4/5 h-4/5 rounded-full cursor-move'
 								style={{ backgroundColor: item }}
 							/>
 						)}

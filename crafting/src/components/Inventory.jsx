@@ -1,5 +1,5 @@
 import React from 'react'
-import { useInventoryContext } from '../hooks/useInventoryContext'
+import { useCraftContext } from '../hooks/useCraftContext'
 
 function Inventory() {
 	const {
@@ -9,7 +9,8 @@ function Inventory() {
 		handleDragOver,
 		handleDragStart,
 		addToCraftGrid,
-	} = useInventoryContext()
+		removeItem,
+	} = useCraftContext()
 
 	return (
 		<div className='p-4 border rounded-lg bg-gray-100 flex flex-col items-center'>
@@ -25,16 +26,18 @@ function Inventory() {
 				{slots.map((item, index) => (
 					<div
 						key={index}
-						onDrop={e => handleDrop(e, index, 'inventory')}
+						className='border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer'
+						onDrop={e => handleDrop(e, 'inventory', index)}
 						onDragOver={handleDragOver}
 						draggable={!!item}
-						onDragStart={e => handleDragStart(e, index, 'inventory')}
-						onClick={() => item && addToCraftGrid(item, index)}
-						className='border-2 border-dashed border-gray-400 rounded-md flex items-center justify-center cursor-pointer'
+						onDragStart={e => handleDragStart(e, item, index, 'inventory')}
+						onClick={() => {
+							if (item) addToCraftGrid(item, index, removeItem, null)
+						}}
 					>
 						{item && (
 							<div
-								className='w-4/5 h-4/5 rounded-full'
+								className='w-4/5 h-4/5 rounded-full cursor-move'
 								style={{ backgroundColor: item }}
 							/>
 						)}

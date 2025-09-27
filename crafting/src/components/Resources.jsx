@@ -1,10 +1,10 @@
 import React from 'react'
-import useResources from '../hooks/useResources'
-import { useInventoryContext } from '../hooks/useInventoryContext'
+import { useCraftContext } from '../hooks/useCraftContext'
+import useGameData from '../hooks/useGameData'
 
 function Resources() {
-	const { resources, handleDragStart } = useResources()
-	const { addToInventory } = useInventoryContext()
+	const { addItem, handleDragStart, handleDragOver } = useCraftContext()
+	const { resources } = useGameData()
 
 	return (
 		<div className='p-4 border rounded-lg border-green-400 bg-green-100 flex flex-col items-center justify-center'>
@@ -14,11 +14,12 @@ function Resources() {
 					<div
 						key={index}
 						draggable
-						onDragStart={e => handleDragStart(e, color)}
-						onClick={() => addToInventory(color)}
+						onDragStart={e => handleDragStart(e, color, null, 'resource')}
+						onDragOver={handleDragOver}
+						onClick={() => addItem(color)}
 						className='w-16 h-16 rounded-lg cursor-pointer'
 						style={{ backgroundColor: color }}
-					></div>
+					/>
 				))}
 			</div>
 		</div>

@@ -5,15 +5,13 @@ export default function useGarbage() {
 
 	const handleDrop = e => {
 		e.preventDefault()
-		const item = e.dataTransfer.getData('resource')
+		const item = e.dataTransfer.getData('item')
 		if (item) {
 			setTrash(prev => [...prev, item])
 		}
 	}
 
-	const handleDragOver = e => {
-		e.preventDefault()
-	}
+	const handleDragOver = e => e.preventDefault()
 
 	return { trash, handleDrop, handleDragOver }
 }

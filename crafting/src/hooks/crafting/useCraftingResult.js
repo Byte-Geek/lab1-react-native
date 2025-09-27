@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
 
-export default function useCrafting(craftSlots) {
+export default function useCraftingSystem(craftSlots, clearCraftGrid) {
 	const [recipes, setRecipes] = useState([])
 	const [result, setResult] = useState(null)
 
-	
 	useEffect(() => {
 		fetch('/data.json')
 			.then(res => res.json())
@@ -23,7 +22,6 @@ export default function useCrafting(craftSlots) {
 			return
 		}
 
-
 		const recipe = recipes.find(r => {
 			if (r.inputs.length !== nonEmpty.length) return false
 			return r.inputs.every(color => nonEmpty.includes(color))
@@ -32,5 +30,14 @@ export default function useCrafting(craftSlots) {
 		setResult(recipe ? recipe.result : null)
 	}, [craftSlots, recipes])
 
-	return { result }
+	const takeResult = () => {
+		const res = result
+		if (res) {
+			setResult(null)
+			clearCraftGrid()
+		}
+		return res
+	}
+
+	return { result, setResult, takeResult }
 }

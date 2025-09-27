@@ -1,25 +1,15 @@
 {
-	"resources": ["red", "green", "blue"],
+	"resources": ["red", "blue", "yellow"],
 	"recipes": [
-		{ "inputs": ["red", "green"], "result": "yellow" },
 		{ "inputs": ["red", "blue"], "result": "purple" },
-		{ "inputs": ["blue", "green"], "result": "cyan" },
-		{ "inputs": ["yellow", "blue"], "result": "orange" },
-		{ "inputs": ["purple", "green"], "result": "magenta" },
-		{ "inputs": ["cyan", "red"], "result": "teal" },
-		{ "inputs": ["red", "yellow"], "result": "pink" },
-		{ "inputs": ["green", "purple"], "result": "brown" },
-		{ "inputs": ["blue", "orange"], "result": "navy" },
-		{ "inputs": ["cyan", "magenta"], "result": "violet" },
-		{ "inputs": ["yellow", "teal"], "result": "lime" },
-		{ "inputs": ["pink", "brown"], "result": "maroon" },
-		{ "inputs": ["orange", "green"], "result": "gold" },
-		{ "inputs": ["purple", "cyan"], "result": "indigo" },
-		{ "inputs": ["lime", "pink"], "result": "salmon" },
-		{ "inputs": ["violet", "orange"], "result": "plum" },
-		{ "inputs": ["brown", "navy"], "result": "charcoal" },
-		{ "inputs": ["gold", "teal"], "result": "khaki" },
-		{ "inputs": ["maroon", "lime"], "result": "coral" },
-		{ "inputs": ["indigo", "salmon"], "result": "peach" }
+		{ "inputs": ["red", "yellow"], "result": "orange" },
+		{ "inputs": ["blue", "yellow"], "result": "green" },
+		{ "inputs": ["red", "blue", "yellow"], "result": "brown" },
+		{ "inputs": ["purple", "yellow"], "result": "magenta" },
+		{ "inputs": ["orange", "blue"], "result": "teal" },
+		{ "inputs": ["green", "red"], "result": "maroon" },
+		{ "inputs": ["purple", "green"], "result": "navy" },
+		{ "inputs": ["orange", "green", "purple"], "result": "black" },
+		{ "inputs": ["magenta", "teal"], "result": "white" }
 	]
 }
